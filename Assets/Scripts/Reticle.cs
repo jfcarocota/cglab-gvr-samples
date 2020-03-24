@@ -19,6 +19,8 @@ public class Reticle : MonoBehaviour
     [SerializeField]
     float error;
 
+    VRButton vrButton;
+
     void Start()
     {
         startSize = reticle.localScale;
@@ -36,6 +38,12 @@ public class Reticle : MonoBehaviour
             reticle.localScale = startSize * error * hit.distance;
             reticle.position = hit.point + new Vector3(0, 0, -0.01f);
             reticle.localRotation = Quaternion.LookRotation(hit.normal);
+
+            vrButton = hit.collider.GetComponent<VRButton>();
+            if(vrButton && Input.GetMouseButtonDown(0))
+            {
+                vrButton.Click();
+            }
         }
         else
         {
